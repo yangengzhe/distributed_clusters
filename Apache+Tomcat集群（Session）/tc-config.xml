@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    >
+
+  <tc-properties>
+    <property name="l2.nha.dirtydb.autoDelete" value="true"/>
+    <property name="l1.cachemanager.enabled" value="true"/>
+    <property name="logging.maxLogFileSize" value="1024"/>
+  </tc-properties>
+  <servers>
+
+    <server host="172.29.131.138" name="apache">
+      <data>/usr/local/terracotta/server-data</data>
+      <logs>/usr/local/terracotta/server-logs</logs>
+      <statistics>/usr/local/terracotta/server-statistics</statistics>
+      <dso-port>9510</dso-port>
+      <jmx-port>9520</jmx-port>
+    </server>
+<server host="172.29.131.139" name="tomcat2">
+      <data>/usr/local/terracotta/server-data</data>
+      <logs>/usr/local/terracotta/server-logs</logs>
+      <statistics>/usr/local/terracotta/server-statistics</statistics>
+      <dso-port>9510</dso-port>
+      <jmx-port>9520</jmx-port>
+    </server>
+<server host="172.29.131.140" name="tomcat3" >
+      <data>/usr/local/terracotta/server-data</data>
+      <logs>/usr/local/terracotta/server-logs</logs>
+      <statistics>/usr/local/terracotta/server-statistics</statistics>
+      <dso-port>9510</dso-port>
+      <jmx-port>9520</jmx-port>
+    </server>    
+
+
+  </servers>
+  
+  
+  <!-- This section contains settings that affect all clients that connect to the
+       system.
+       
+       Note that while these settings are applied uniformly across all clients,
+       this does not prevent you from applying different settings to specific
+       clients. There are two ways of doing this:
+       
+       - 1. Certain parameters ('logs', below) undergo parameter expansion
+       before being used by the client. This allows you to use predefined
+       substitutions (such as '%h' for host), or a general one
+       (%(myprop) to use the value of Java system property 'myprop'), for
+       these values.
+       2. Expansions are carried out in each client's JVM
+       independently.  Parameter expansion is not done for values inside the
+       <modules> element.
+  -->
+  <clients>
+    
+    <!-- Where should the client write its log files?
+         
+         This value undergoes parameter substitution before being used.
+         Thus, a value like 'client-logs-%h' expands to
+         'client-logs-banana' if running on host 'banana'.
+         
+         If this is a relative path, it is interpreted relative to
+         the current working directory of the client (that is, the directory
+         you were in when you started the program that uses Terracotta
+         services). It is recommended that you specify an absolute
+         path.
+         
+         Default: 'logs-%i', which places the logs in a directory relative
+         to the directory you were in when you invoked the program that uses
+         Terracotta services (your client), and calls that directory. For example,
+         'logs-10.0.0.57' if the machine that the client is on has assigned IP
+         address 10.0.0.57.
+    -->
+    <logs>logs-%i</logs>
+    
+  </clients>
+  
+
+
+  
+</tc:tc-config>
